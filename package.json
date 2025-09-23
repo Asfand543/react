@@ -1,21 +1,17 @@
 {
   "dependencies": {
-    "ajv": "^8.17.1"
+    "ajv": "^8.17.1",
+    "react-scripts": "^5.0.1"
   },
-  
   "name": "my-app",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-    
-    
-   "start": "react-scripts start",
-   "build": "react-scripts build",
-   "test": "react-scripts test",
-   "eject": "react-scripts eject"
-
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -28,5 +24,6 @@
   "bugs": {
     "url": "https://github.com/Asfand543/react/issues"
   },
+  "react-scripts": "^5.0.1",
   "homepage": "https://github.com/Asfand543/react#readme"
 }
