@@ -1,44 +1,48 @@
-pipeline{
-    agent any
+pipeline {
+  agent any
 
-    environment{
-        DOCKER_IMAGE = "my-react-app:latest"
+  environment {
+    NODE_ENV = 'production'
+  }
 
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
     }
-    stages{
-        stage('checkout'){
-            steps{
-                echo 'pulling the code  ...'
-                checkout scm
-            }
 
-        }
-        stage('install & Build'){
-            steps{
-                 echo '⚙️ Installing dependencies and building React app...'
-                bat 'npm install'
-                bat 'npm run build'
-            }
-        }
-        stage ('docker Build'){
-            steps{
-                   echo '🐳 Building Docker image ...'
-                   bat "docker build -t ${DOCKER_IMAGE}."
-            }
-        }
-        stage('Install & Build') {
-            steps {
-                echo '⚙️ Installing dependencies and building React app...'
-                bat 'npm install'
-                bat 'npm run build'
-            }
-        
-        }
-        stage('Docker Run') {
-            steps {
-                echo '🚀 Running container...'
-                bat "docker run -d -p 3000:80 --name my-react-container ${DOCKER_IMAGE}"
-            }
-        }
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm ci'
+      }
     }
+
+    stage('Build React App') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh 'docker build -t my-react-app .'
+      }
+    }
+
+    stage('Docker Run') {
+      steps {
+        sh 'docker run -d -p 3000:3000 my-react-app'
+      }
+    }
+  }
+
+  post {
+    success {
+      echo '✅ Build and deployment succeeded!'
+    }
+    failure {
+      echo '❌ Build failed. Check logs for details.'
+    }
+  }
 }
