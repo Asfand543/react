@@ -30,7 +30,7 @@ pipeline {
                     echo '✅ Dependencies installed successfully'
                 }
                 failure {
-                    echo '❌ Dependency installation failed'
+                    echo '❌ Dependency installation '
                 }
             }
         }
